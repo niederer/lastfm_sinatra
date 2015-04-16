@@ -1,0 +1,42 @@
+// Body reset
+// -------------------------
+html {
+  font-size: 100%;
+  body {
+    font-size: $baseFontSize;
+    line-height: $baseLineHeight;
+  }
+}
+
+// body reset
+body {
+  background-color: $bodyBackground;
+  color: $textColor;
+  font-family: $baseFontFamily;
+}
+
+// Headings
+// -------------------------
+h1, h2, h3, h4, h5 {
+  font-weight: $headingsFontWeight;
+}
+
+// Bold
+// -------------------------
+b,
+strong {
+  font-weight: $headingsFontWeight;
+}
+
+// Links
+// -------------------------
+
+a {
+  color: $linkColor;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  color: $linkColorHover;
+  text-decoration: underline;
+}

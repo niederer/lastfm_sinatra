@@ -1,0 +1,35 @@
+// Scaffolding
+// -------------------------
+$bodyBackground:        #fff !default;
+$textColor:             #333 !default;
+
+// Typography
+// -------------------------
+$sansFontFamily:        "Open Sans", Helvetica, Arial, sans-serif !default;
+$serifFontFamily:       Georgia, "Times New Roman", Times, serif !default;
+$monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace !default;
+
+$baseFontSize:          16px !default;
+$baseFontFamily:        $sansFontFamily !default;
+$baseLineHeight:        20px !default;
+$altFontFamily:         $serifFontFamily !default;
+
+$headingsFontFamily:    inherit !default;
+$headingsFontWeight:    600 !default;    // instead of browser default, bold
+$headingsColor:         inherit !default;
+
+// Links
+// -------------------------
+$linkColor:             #1188bd !default;
+$linkColorHover:        darken($linkColor, 15%) !default;
+
+// Grid
+// -------------------------
+// Specify the number of available columns
+$gridColumns:           12;
+// Inner padding on each side of a column to create gutters
+$gridColumnPadding:     15px;
+// Point at which the floats kick in and horizontally align columns
+$gridFloatBreakpoint:   768px;
+// max-width for the layout so it doesn't get out of control on large screens
+$containerMax:          1500px !default;
