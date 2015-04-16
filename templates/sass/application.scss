@@ -37,6 +37,11 @@ ul {
   }
 }
 
+// denotes when data is still static(fake)
+.fake {
+  border: 5px solid cyan !important;
+}
+
 .btn {
   border-radius: 10px;
   color: $textColor;

@@ -2,42 +2,35 @@ section.intro
   .container
     .row
       .grid-3
-        img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p160x160/10945741_10204457134285753_7410372777158922795_n.jpg?oh=3890b5bfee57060e5afb0688b1f03432&oe=55E63965&__gda__=1437394261_df9c5c87db4a9cd04fc83856c47d764a" /
+        img.fake src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p160x160/10945741_10204457134285753_7410372777158922795_n.jpg?oh=3890b5bfee57060e5afb0688b1f03432&oe=55E63965&__gda__=1437394261_df9c5c87db4a9cd04fc83856c47d764a" /
         ul.bio
           li
             i.fa.fa-user
-            | 24, Female, United States
+            = @user_info['age'] + ", "
+            = @user_info['gender'] + ", "
+            = @user_info['country']
           li
             i.fa.fa-music
-            strong 126071
-            | total plays
+            strong= @user_info['playcount']
+            |  total plays
           li
             i.fa.fa-clock-o
-            | scrobbling since Jan 2010
+            | scrobbling since
+            = " " + @user_info['registered']['content']
           li
-            a href="#" rel="me"
+            a href="#{@user_profile}" rel="me"
               i.fa.fa-lastfm
               | View profile on last.fm
       .grid-9
-        h1 Carissa Niederer's been listening to...
-        p Better Than Ezra, Death From Above 1979, TV on the Radio, The Dandy Warhols, and Foo Fighters.
+        h1= @user_info['realname'] + "'s been listening to..."
+        p.fake Better Than Ezra, Death From Above 1979, TV on the Radio, The Dandy Warhols, and Foo Fighters.
         h2 Most Recent Tracks
         ol.list-zebra
-          li
-            | Clear To Some by Bromheads Jacket
-            span 5 minutes ago
-          li
-            | Bohemian Like You by The Dandy Warhols
-            span 15 minutes ago
-          li
-            | Heavy Hands by Alex Clare
-            span 20 minutes ago
-          li
-            | Sunflowers by Better Than Ezra
-            span 25 minutes ago
-          li
-            | Trainwreck 1979 by Death From Above 1979
-            span 29 minutes ago
+          - @recent_tracks.each do |track|
+            li
+              = track['name'] + " by " + track['artist']['content']
+              span= track['date']['content']
+
 section
   .container
     .row
@@ -45,14 +38,14 @@ section
         h2 Top Songs of the Week
     .row
       .grid-9
-        ol.list-zebra
+        ol.list-zebra.fake
           li Every Other Freckle by alt-J (110)
           li Sunflowers by Better Than Ezra (90)
           li Utrydd dei Svake (Demo) by Kvelertak (55)
           li Shake it Off by Definitely Not Taylor Swift (30)
           li Skin by Breaking Benjamin (27)
       .grid-3
-        ul.nav-stacked
+        ul.nav-stacked.fake
           li
             a.btn.active href="#"  Past Week
           li
@@ -71,13 +64,12 @@ section
     .row
       .grid-9
         ol.list-zebra
-          li Bromheads Jacket (110)
-          li Death From Above 1979 (90)
-          li Foo Fighters (55)
-          li Definitely Not Taylor Swift (30)
-          li Catfish and the Bottlemen (27)
+          - @top_artists.each do |artist|
+            li
+              = artist['name']
+              = " (" + artist['playcount'] + ")"
       .grid-3
-        ul.nav-stacked
+        ul.nav-stacked.fake
           li
             a.btn.active href="#"  Past Week
           li
@@ -88,7 +80,7 @@ section
             a.btn href="#"  Past Year
           li
             a.btn href="#"  Overall
-section.friends
+section.friends.fake
   .container
     .row
       .grid-12
@@ -103,7 +95,7 @@ section.friends
         br/
         a href="#"  See More
 footer.footer
-  | \&copy; 2015. Data by
+  | &copy; 2015. Data by
   a href="http://www.last.fm/api"  Last.fm
   | design by
   a href="http://www.github.com/niederer" rel="nofollow"

@@ -3,6 +3,9 @@ require 'rubygems'
 require 'sinatra/base'
 require 'slim'
 require 'sass'
+require 'net/http'
+require 'open-uri'
+require 'xmlsimple'
 
 # Application
 class SassHandler < Sinatra::Base
@@ -23,7 +26,55 @@ class MyApp < Sinatra::Base
 
   # Route Handlers
   get '/' do
+    client = LastFm.new
+    top_artists = client.get_top_artists('shewashome', 5)
+    @top_artists = top_artists['topartists']['artist']
+
+    # TODO- search for ruby gem relative time
+    # to get 'x minutes ago'
+    recent_tracks = client.get_recent_tracks('shewashome', 5)
+    @recent_tracks = recent_tracks['recenttracks']['track']
+
+    user_info = client.get_user_info('shewashome')
+    @user_info = user_info['user']
+
+    @user_profile = user_url('shewashome')
+
     slim :index
+  end
+
+  def user_url(user)
+    return "http://last.fm/user/" + user
+  end
+end
+
+class LastFm
+  attr_reader :api_key
+
+  def initialize(options = {})
+    @http = Net::HTTP.new('ws.audioscrobbler.com')
+    @api_key = 'nope'
+  end
+
+  def get_top_artists(username, limit, period = '7day')
+    get "/2.0/?method=user.gettopartists&user=#{username}&api_key=#{@api_key}&limit=#{limit}&period=#{period}"
+  end
+
+  def get_recent_tracks(username, limit, from = nil)
+    path = "/2.0/?method=user.getrecenttracks&user=#{username}&api_key=#{@api_key}&limit=#{limit}"
+    path = path + "&from=#{from}" unless from.nil?
+    get path
+  end
+
+  def get_user_info(username)
+    get "/2.0/?method=user.getinfo&user=#{username}&api_key=#{@api_key}"
+  end
+
+  private
+
+  def get(url)
+    response = @http.request(Net::HTTP::Get.new(url))
+    XmlSimple.xml_in(response.body, { 'ForceArray' => false })
   end
 end
 
