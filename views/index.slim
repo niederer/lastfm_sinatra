@@ -16,20 +16,20 @@ section.intro
           li
             i.fa.fa-clock-o
             | scrobbling since
-            = " " + @user_info['registered']['content']
+            = " " + Time.parse(@user_info['registered']['content']).year.to_s
           li
             a href="#{@user_profile}" rel="me"
               i.fa.fa-lastfm
               | View profile on last.fm
       .grid-9
         h1= @user_info['realname'] + "'s been listening to..."
-        p.fake Better Than Ezra, Death From Above 1979, TV on the Radio, The Dandy Warhols, and Foo Fighters.
+        p= @top_artists.map{|artist| artist['name']}.join(', ')
         h2 Most Recent Tracks
         ol.list-zebra
           - @recent_tracks.each do |track|
             li
               = track['name'] + " by " + track['artist']['content']
-              span= track['date']['content']
+              span= Time.parse(track['date']['content']).ago.to_words
 
 section
   .container
