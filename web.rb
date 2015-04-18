@@ -30,7 +30,7 @@ class MyApp < Sinatra::Base
     top_artists = client.get_top_artists('shewashome', 5)
     @top_artists = top_artists['topartists']['artist']
 
-    # TODO- search for ruby gem relative time
+    # TODO: search for ruby gem relative time
     # to get 'x minutes ago'
     recent_tracks = client.get_recent_tracks('shewashome', 5)
     @recent_tracks = recent_tracks['recenttracks']['track']
@@ -38,13 +38,20 @@ class MyApp < Sinatra::Base
     user_info = client.get_user_info('shewashome')
     @user_info = user_info['user']
 
+    @user_info['gender'] = user_gender(@user_info['gender'])
+
     @user_profile = user_url('shewashome')
 
     slim :index
   end
 
+  # TODO: find a place for view helpers
   def user_url(user)
-    return "http://last.fm/user/" + user
+    "http://last.fm/user/" + user
+  end
+
+  def user_gender(gender)
+    gender == 'f' ? 'female' : 'male'
   end
 end
 
