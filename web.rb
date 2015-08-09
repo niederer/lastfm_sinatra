@@ -31,10 +31,11 @@ class MyApp < Sinatra::Base
     top_artists = client.get_top_artists('shewashome', 5)
     @top_artists = top_artists['topartists']['artist']
 
-    # TODO: search for ruby gem relative time
-    # to get 'x minutes ago'
     recent_tracks = client.get_recent_tracks('shewashome', 5)
     @recent_tracks = recent_tracks['recenttracks']['track']
+
+    top_tracks = client.get_top_tracks('shewashome', 5)
+    @top_tracks = top_tracks['toptracks']['track']
 
     user_info = client.get_user_info('shewashome')
     @user_info = user_info['user']
@@ -71,6 +72,12 @@ class LastFm
   def get_recent_tracks(username, limit, from = nil)
     path = "/2.0/?method=user.getrecenttracks&user=#{username}&api_key=#{@api_key}&limit=#{limit}"
     path = path + "&from=#{from}" unless from.nil?
+    get path
+  end
+
+  def get_top_tracks(username, limit, period = '7day')
+    path = "/2.0/?method=user.gettoptracks&user=#{username}&api_key=#{@api_key}&limit=#{limit}"
+    path = path + "&period=#{period}" unless period.nil?
     get path
   end
 

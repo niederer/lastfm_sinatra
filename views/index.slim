@@ -38,12 +38,10 @@ section
         h2 Top Songs of the Week
     .row
       .grid-9
-        ol.list-zebra.fake
-          li Every Other Freckle by alt-J (110)
-          li Sunflowers by Better Than Ezra (90)
-          li Utrydd dei Svake (Demo) by Kvelertak (55)
-          li Shake it Off by Definitely Not Taylor Swift (30)
-          li Skin by Breaking Benjamin (27)
+        ol.list-zebra
+          - @top_tracks.each do |track|
+            li
+              = track['name'] + " by " + track['artist']['name'] + " (" + track['playcount'] + ")"
       .grid-3
         ul.nav-stacked.fake
           li
