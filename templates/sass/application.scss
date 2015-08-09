@@ -1,6 +1,7 @@
-$red: #E31B23;
-$greyLight: #BBB;
-$linkColor: #2DC2BC;
+$red:        #E31B23;
+$greyLight:  #BBB;
+$cyan:       #6AEDC0;
+$linkColor:  #2DC2BC;
 
 $containerMax: 960px;
 
@@ -82,6 +83,7 @@ section {
   }
   img {
     border-radius: 50%;
+    border: 7px solid $cyan;
   }
   .bio {
     li {
