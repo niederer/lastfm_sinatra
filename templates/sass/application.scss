@@ -53,6 +53,7 @@ ul {
   &:hover {
     background: $greyLight;
     color: #FFF;
+    cursor: pointer;
     text-decoration: none;
   }
   &.active {
