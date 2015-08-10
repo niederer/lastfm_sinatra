@@ -28,21 +28,23 @@ class MyApp < Sinatra::Base
   # Route Handlers
   get '/' do
     client = LastFm.new
-    top_artists = client.get_top_artists('shewashome', 5)
+    user = 'chicohernando'
+
+    top_artists = client.get_top_artists(user, 5)
     @top_artists = top_artists['topartists']['artist']
 
-    recent_tracks = client.get_recent_tracks('shewashome', 5)
+    recent_tracks = client.get_recent_tracks(user, 5)
     @recent_tracks = recent_tracks['recenttracks']['track']
 
-    top_tracks = client.get_top_tracks('shewashome', 5)
+    top_tracks = client.get_top_tracks(user, 5)
     @top_tracks = top_tracks['toptracks']['track']
 
-    user_info = client.get_user_info('shewashome')
+    user_info = client.get_user_info(user)
     @user_info = user_info['user']
 
     @user_info['gender'] = user_gender(@user_info['gender'])
 
-    @user_profile = user_url('shewashome')
+    @user_profile = user_url(user)
 
     slim :index
   end
